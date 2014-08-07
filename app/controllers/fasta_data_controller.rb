@@ -61,6 +61,22 @@ class FastaDataController < ApplicationController
     end
   end
 
+  def merge
+  end
+
+  def upload
+    FastaDatum.destroy_all
+
+    params[:uploads].each do |file|
+      fasta = FastaDatum.new
+      fasta.filename = file.original_filename
+      fasta.data = file.read
+      fasta.save!
+    end
+
+    @fasta_data = FastaDatum.all
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_fasta_datum

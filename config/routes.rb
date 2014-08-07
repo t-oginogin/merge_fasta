@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  post 'fasta_data/upload'
+
+  get 'fasta_data/merge'
+
   resources :fasta_data
 
   # The priority is based upon order of creation: first created -> highest priority.
