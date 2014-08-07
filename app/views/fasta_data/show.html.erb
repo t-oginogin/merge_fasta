@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Filename:</strong>
+  <%= @fasta_datum.filename %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @fasta_datum.data %>
+</p>
+
+<%= link_to 'Edit', edit_fasta_datum_path(@fasta_datum) %> |
+<%= link_to 'Back', fasta_data_path %>
