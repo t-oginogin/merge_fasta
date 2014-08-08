@@ -62,7 +62,8 @@ class FastaDataController < ApplicationController
   end
 
   def merge
-    @fasta_data = FastaDatum.all
+    targets = (params[:targets] || {}).keys.map(&:to_i)
+    @fasta_data = FastaDatum.find targets
   end
 
   def upload
