@@ -17,7 +17,7 @@
         <td><%= fasta_datum.id %></td>
         <td><%= fasta_datum.filename %></td>
         <td><%= br fasta_datum.data %></td>
-        <td><%= fasta_datum.updated_at %></td>
+        <td><%= fasta_datum.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
         <td><%= link_to 'Show', fasta_datum %></td>
         <td><%= link_to 'Destroy', fasta_datum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
