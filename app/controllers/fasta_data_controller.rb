@@ -62,11 +62,10 @@ class FastaDataController < ApplicationController
   end
 
   def merge
+    @fasta_data = FastaDatum.all
   end
 
   def upload
-    FastaDatum.destroy_all
-
     params[:uploads].each do |file|
       fasta = FastaDatum.new
       fasta.filename = file.original_filename
@@ -74,7 +73,7 @@ class FastaDataController < ApplicationController
       fasta.save!
     end
 
-    @fasta_data = FastaDatum.all
+    redirect_to fasta_data_url
   end
 
   private

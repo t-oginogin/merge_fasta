@@ -1,7 +1,9 @@
-<h1>FastaData#merge</h1>
-<%= form_tag fasta_data_upload_path, :method => :post, :multipart => true do %>
-  <%= file_field_tag 'uploads[]', :multiple => true %>
-  <div class="actions">
-    <%= submit_tag 'アップロード' %>
-  </div>
+<% @fasta_data.each do |fasta_datum| %>
+> <%= fasta_datum.filename %>
+<br/>
+<%= br fasta_datum.data %>
+<br/>
+<br/>
 <% end %>
+<hr>
+<%= link_to 'Back', fasta_data_path %>
