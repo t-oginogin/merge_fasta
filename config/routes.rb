@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'fasta_data/destroy_all'
+
   post 'fasta_data/upload'
 
   get 'fasta_data/merge'

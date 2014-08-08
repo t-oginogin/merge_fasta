@@ -61,6 +61,12 @@ class FastaDataController < ApplicationController
     end
   end
 
+  def destroy_all
+    FastaDatum.destroy_all
+
+    redirect_to fasta_data_url
+  end
+
   def merge
     targets = (params[:targets] || {}).keys.map(&:to_i)
     @fasta_data = FastaDatum.find targets
