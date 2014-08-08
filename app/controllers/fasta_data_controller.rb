@@ -67,7 +67,7 @@ class FastaDataController < ApplicationController
   end
 
   def upload
-    params[:uploads].each do |file|
+    (params[:uploads] || []).each do |file|
       fasta = FastaDatum.new
       fasta.filename = file.original_filename
       fasta.data = file.read
