@@ -24,11 +24,13 @@ RSpec.describe FastaDataController, :type => :controller do
   # FastaDatum. As you add validations to FastaDatum, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    content1 = "ABCDEFG1\nBCDEFGH1"
+    {filename: 'test1.fasta', data: content1}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    content1 = ''
+    {filename: '', data: content1}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -38,6 +40,7 @@ RSpec.describe FastaDataController, :type => :controller do
 
   describe "GET index" do
     it "assigns all fasta_data as @fasta_data" do
+      FastaDatum.destroy_all
       fasta_datum = FastaDatum.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:fasta_data)).to eq([fasta_datum])
@@ -49,95 +52,6 @@ RSpec.describe FastaDataController, :type => :controller do
       fasta_datum = FastaDatum.create! valid_attributes
       get :show, {:id => fasta_datum.to_param}, valid_session
       expect(assigns(:fasta_datum)).to eq(fasta_datum)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new fasta_datum as @fasta_datum" do
-      get :new, {}, valid_session
-      expect(assigns(:fasta_datum)).to be_a_new(FastaDatum)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested fasta_datum as @fasta_datum" do
-      fasta_datum = FastaDatum.create! valid_attributes
-      get :edit, {:id => fasta_datum.to_param}, valid_session
-      expect(assigns(:fasta_datum)).to eq(fasta_datum)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new FastaDatum" do
-        expect {
-          post :create, {:fasta_datum => valid_attributes}, valid_session
-        }.to change(FastaDatum, :count).by(1)
-      end
-
-      it "assigns a newly created fasta_datum as @fasta_datum" do
-        post :create, {:fasta_datum => valid_attributes}, valid_session
-        expect(assigns(:fasta_datum)).to be_a(FastaDatum)
-        expect(assigns(:fasta_datum)).to be_persisted
-      end
-
-      it "redirects to the created fasta_datum" do
-        post :create, {:fasta_datum => valid_attributes}, valid_session
-        expect(response).to redirect_to(FastaDatum.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved fasta_datum as @fasta_datum" do
-        post :create, {:fasta_datum => invalid_attributes}, valid_session
-        expect(assigns(:fasta_datum)).to be_a_new(FastaDatum)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:fasta_datum => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested fasta_datum" do
-        fasta_datum = FastaDatum.create! valid_attributes
-        put :update, {:id => fasta_datum.to_param, :fasta_datum => new_attributes}, valid_session
-        fasta_datum.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "assigns the requested fasta_datum as @fasta_datum" do
-        fasta_datum = FastaDatum.create! valid_attributes
-        put :update, {:id => fasta_datum.to_param, :fasta_datum => valid_attributes}, valid_session
-        expect(assigns(:fasta_datum)).to eq(fasta_datum)
-      end
-
-      it "redirects to the fasta_datum" do
-        fasta_datum = FastaDatum.create! valid_attributes
-        put :update, {:id => fasta_datum.to_param, :fasta_datum => valid_attributes}, valid_session
-        expect(response).to redirect_to(fasta_datum)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the fasta_datum as @fasta_datum" do
-        fasta_datum = FastaDatum.create! valid_attributes
-        put :update, {:id => fasta_datum.to_param, :fasta_datum => invalid_attributes}, valid_session
-        expect(assigns(:fasta_datum)).to eq(fasta_datum)
-      end
-
-      it "re-renders the 'edit' template" do
-        fasta_datum = FastaDatum.create! valid_attributes
-        put :update, {:id => fasta_datum.to_param, :fasta_datum => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
     end
   end
 
