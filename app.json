@@ -1,0 +1,6 @@
+{
+  "name": "mergefasta",
+  "description": "Merge fasta files",
+  "repository": "https://github.com/t-oginogin/merge_fasta",
+  "keywords": ["rails"]
+}
