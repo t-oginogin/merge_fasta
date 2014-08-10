@@ -1,9 +1,5 @@
-<% @fasta_data.each do |fasta_datum| %>
-> <%= File.basename fasta_datum.filename, '.*' %>
-<br/>
-<%= br fasta_datum.data %>
+<%= br @content %>
 <br/>
 <br/>
-<% end %>
 <hr>
 <%= link_to 'Back', fasta_data_path %>
