@@ -1,7 +1,7 @@
 <h1>Listing fasta_data</h1>
 
 <%= form_tag fasta_data_merge_path, :method => :get do %>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th></th>
@@ -29,19 +29,25 @@
   </table>
 
   <br/>
-  <%= submit_tag 'Merge Fasta' %>
+  <%= submit_tag 'Merge Fasta', class: "btn btn-primary" %>
 <% end %>
 
 <br/>
 <div>
   <%= form_tag fasta_data_upload_path, :method => :post, :multipart => true do %>
+    <div class="row">
+    <div class="col-md-3">
     <%= file_field_tag 'uploads[]', :multiple => true %>
-    <%= submit_tag 'Add Files' %>
+    </div>
+    <div class="col-md-1">
+    <%= submit_tag 'Add Files', class: "btn btn-primary" %>
+    </div>
+  </div>
   <% end %>
 </div>
 
 <br/>
 <div>
-<%= button_to 'Destroy All Files', fasta_data_destroy_all_path, method: :get, data: { confirm: 'destroy all files?' } %>
+<%= button_to 'Destroy All Files', fasta_data_destroy_all_path, method: :get, data: { confirm: 'destroy all files?' }, class: "btn btn-danger" %>
 </div>
 
