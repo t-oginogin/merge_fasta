@@ -17,20 +17,20 @@ RSpec.describe FastaDatum, :type => :model do
 
     let(:expected_content1) {
       content = ""
-      content = "#{content}\n> test1\nABCDEFG1\nBCDEFGH1\n"
-      content = "#{content}\n> test2\nABCDEFG2\nBCDEFGH2\n"
-      content = "#{content}\n> test3\nABCDEFG3\nBCDEFGH3\n"
+      content = "#{content}\n>test1\nABCDEFG1\nBCDEFGH1\n"
+      content = "#{content}\n>test2\nABCDEFG2\nBCDEFGH2\n"
+      content = "#{content}\n>test3\nABCDEFG3\nBCDEFGH3\n"
     }
 
     let(:expected_content2) {
       content = ""
-      content = "#{content}\n> test1\nABCDEFG1\nBCDEFGH1\n"
-      content = "#{content}\n> test3\nABCDEFG3\nBCDEFGH3\n"
+      content = "#{content}\n>test1\nABCDEFG1\nBCDEFGH1\n"
+      content = "#{content}\n>test3\nABCDEFG3\nBCDEFGH3\n"
     }
 
     let(:expected_content3) {
       content = ""
-      content = "#{content}\n> test2\nABCDEFG2\nBCDEFGH2\n"
+      content = "#{content}\n>test2\nABCDEFG2\nBCDEFGH2\n"
     }
 
     context 'when selected all files' do

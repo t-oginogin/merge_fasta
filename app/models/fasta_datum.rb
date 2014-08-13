@@ -3,7 +3,7 @@ class FastaDatum < ActiveRecord::Base
     fasta_data = FastaDatum.find targets
     content = ""
     fasta_data.each do |fasta_datum|
-      content = "#{content}\n\> #{File.basename fasta_datum.filename, '.*'}\n#{fasta_datum.data}\n"
+      content = "#{content}\n\>#{File.basename fasta_datum.filename, '.*'}\n#{fasta_datum.data}\n"
     end
     content
   end
