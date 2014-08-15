@@ -36,7 +36,7 @@
   <%= form_tag fasta_data_upload_path, :method => :post, :multipart => true do %>
     <div class="row">
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-    <%= file_field_tag 'uploads[]', :multiple => true %>
+      <%= file_field_tag 'uploads[]', class: "filestyle", :multiple => true %>
     </div>
     <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
     <%= submit_tag 'Add Files', class: "btn btn-primary" %>
