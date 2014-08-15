@@ -1,6 +1,6 @@
 <h1>Listing fasta_data</h1>
 
-<%= form_tag fasta_data_merge_path, :method => :get do %>
+<%= form_tag fasta_data_merge_path, :method => :get, id: 'merge_form' do %>
   <table class="table">
     <thead>
       <tr>
@@ -28,8 +28,7 @@
     </tbody>
   </table>
 
-  <br/>
-  <%= submit_tag 'Merge Fasta', class: "btn btn-primary" %>
+  <%= submit_tag 'Merge Fasta', style: 'display: none;' %>
 <% end %>
 
 <br/>
@@ -45,6 +44,10 @@
   </div>
   <% end %>
 </div>
+
+<br/>
+<%= submit_tag 'Merge Fasta', class: "btn btn-primary", onclick: 'fasta_data.merge()' %>
+<br/>
 
 <br/>
 <div>
