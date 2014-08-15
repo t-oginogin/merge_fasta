@@ -22,7 +22,7 @@
           <td><%= br fasta_datum.data.truncate(60) %></td>
           <td><%= fasta_datum.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
           <td><%= link_to 'Show', fasta_datum %></td>
-          <td><%= link_to 'Destroy', fasta_datum, method: :delete, data: { confirm: 'destroy file?' } %></td>
+          <td><%= link_to 'Delete', fasta_datum, method: :delete, data: { confirm: 'delete file?' } %></td>
         </tr>
       <% end %>
     </tbody>
@@ -51,6 +51,6 @@
 
 <br/>
 <div>
-<%= button_to 'Destroy All Files', fasta_data_destroy_all_path, method: :get, data: { confirm: 'destroy all files?' }, class: "btn btn-danger" %>
+<%= button_to 'Delete All Files', fasta_data_destroy_all_path, method: :get, data: { confirm: 'delete all files?' }, class: "btn btn-danger" %>
 </div>
 
