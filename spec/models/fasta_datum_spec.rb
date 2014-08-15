@@ -13,6 +13,9 @@ RSpec.describe FastaDatum, :type => :model do
 
       content3 = "ABCDEFG3\nBCDEFGH3"
       FastaDatum.create(id: 3, filename: 'test3.fasta', data: content3)
+
+      content4 = "\>test\nABCDEFG4\nBCDEFGH4"
+      FastaDatum.create(id: 4, filename: 'test4.fasta', data: content4)
     end
 
     let(:expected_content1) {
@@ -31,6 +34,12 @@ RSpec.describe FastaDatum, :type => :model do
     let(:expected_content3) {
       content = ""
       content = "#{content}\n>test2\nABCDEFG2\nBCDEFGH2\n"
+    }
+
+    let(:expected_content4) {
+      content = ""
+      content = "#{content}\n>test1\nABCDEFG1\nBCDEFGH1\n"
+      content = "#{content}\n>test\nABCDEFG4\nBCDEFGH4\n"
     }
 
     context 'when selected all files' do
@@ -58,6 +67,48 @@ RSpec.describe FastaDatum, :type => :model do
       it 'is empty string' do
         content = FastaDatum.merged_content []
         expect(content).to eq ''
+      end
+    end
+
+    context 'when selected files include ">"' do
+      it 'does not include filename of the file' do
+        content = FastaDatum.merged_content [1,4]
+        expect(content.gsub(' ', '')).to eq expected_content4.gsub(' ', '')
+      end
+    end
+
+  end
+
+  describe 'content' do
+    before do
+      FastaDatum.destroy_all
+
+      content_no_identifier = "ABCDEFG1\nBCDEFGH1"
+      FastaDatum.create(id: 1, filename: 'test_no_identifier.fasta', data: content_no_identifier)
+
+      content_with_identifier = "\>test\nABCDEFG2\nBCDEFGH2"
+      FastaDatum.create(id: 2, filename: 'content_with_identifier.fasta', data: content_with_identifier)
+    end
+
+    let(:expected_content_no_identifier) {
+      content = ">test_no_identifier\nABCDEFG1\nBCDEFGH1"
+    }
+
+    let(:expected_content_with_identifier) {
+      content = ">test\nABCDEFG2\nBCDEFGH2"
+    }
+
+    context 'when selected file does not include ">"' do
+      it 'include filename of the file' do
+        fasta_datum = FastaDatum.find 1
+        expect(fasta_datum.content.gsub(' ', '')).to eq expected_content_no_identifier.gsub(' ', '')
+      end
+    end
+
+    context 'when selected file include ">"' do
+      it 'does not include filename of the file' do
+        fasta_datum = FastaDatum.find 2
+        expect(fasta_datum.content.gsub(' ', '')).to eq expected_content_with_identifier.gsub(' ', '')
       end
     end
   end
