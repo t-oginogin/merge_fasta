@@ -55,3 +55,9 @@ group :development, :test do
   gem 'pry-byebug'
 end
 
+group :test do
+  gem 'capybara'
+  gem 'launchy'
+  gem 'poltergeist'
+end
+
