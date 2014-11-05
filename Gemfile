@@ -51,7 +51,6 @@ gem 'autoprefixer-rails'
 
 group :production do
   gem 'newrelic_rpm'
-  gem 'google-analytics-rails'
 end
 
 group :development, :test do
