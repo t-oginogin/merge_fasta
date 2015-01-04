@@ -13,11 +13,11 @@
 
 ActiveRecord::Schema.define(version: 20140807085126) do
 
-  create_table "fasta_data", force: true do |t|
+  create_table "fasta_data", force: :cascade do |t|
     t.string   "filename"
     t.binary   "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

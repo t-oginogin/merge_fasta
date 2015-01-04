@@ -4,7 +4,7 @@ class CreateFastaData < ActiveRecord::Migration
       t.string :filename
       t.binary :data
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
