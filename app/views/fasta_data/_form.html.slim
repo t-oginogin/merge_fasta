@@ -1,0 +1,20 @@
+= form_for(@fasta_datum) do |f|
+  - if @fasta_datum.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@fasta_datum.errors.count, "error")
+        |  prohibited this fasta_datum from being saved:
+      ul
+        - @fasta_datum.errors.full_messages.each do |message|
+          li
+            = message
+  .field
+    = f.label :filename
+    br
+    = f.text_field :filename
+  .field
+    = f.label :data
+    br
+    = f.text_field :data
+  .actions
+    = f.submit
