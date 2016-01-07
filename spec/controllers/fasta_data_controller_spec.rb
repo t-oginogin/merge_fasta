@@ -39,11 +39,20 @@ RSpec.describe FastaDataController, :type => :controller do
   let(:valid_session) { {} }
 
   describe "GET index" do
-    it "assigns all fasta_data as @fasta_data" do
-      FastaDatum.destroy_all
-      fasta_datum = FastaDatum.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:fasta_data)).to eq([fasta_datum])
+    let!(:fasta_data) {
+      fasta_data = []
+      Timecop.freeze(Date.today) do
+        fasta_data << FastaDatum.create!(valid_attributes)
+      end
+      Timecop.freeze(Date.yesterday) do
+        fasta_data << FastaDatum.create!(valid_attributes)
+      end
+      fasta_data
+    }
+
+    it 'is ordered by created_at' do
+      get :index
+      expect(assigns(:fasta_data).map(&:id)).to eq([fasta_data[1].id, fasta_data[0].id])
     end
   end
 

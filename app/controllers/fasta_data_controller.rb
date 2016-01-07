@@ -4,7 +4,7 @@ class FastaDataController < ApplicationController
   # GET /fasta_data
   # GET /fasta_data.json
   def index
-    @fasta_data = FastaDatum.all
+    @fasta_data = FastaDatum.all.order(:created_at)
   end
 
   # GET /fasta_data/1
