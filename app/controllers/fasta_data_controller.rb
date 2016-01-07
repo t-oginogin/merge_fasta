@@ -73,14 +73,18 @@ class FastaDataController < ApplicationController
   end
 
   def upload
-    (params[:uploads] || []).each do |file|
+    (params[:files] || []).each do |file|
+      next unless %w(.fasta .fa .seq).include? File.extname(file.original_filename)
       fasta = FastaDatum.new
       fasta.filename = file.original_filename
       fasta.data = file.read
       fasta.save!
     end
 
-    redirect_to fasta_data_url
+    respond_to do |format|
+      format.html { redirect_to fasta_data_path }
+      format.json { head :no_content }
+    end
   end
 
   private

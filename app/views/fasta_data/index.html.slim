@@ -31,18 +31,19 @@ h1
             = link_to 'Show', fasta_datum
           td
             = link_to 'Delete', fasta_datum, method: :delete, data: { confirm: 'delete file?' }
+
   = submit_tag 'Merge Fasta', style: 'display: none;'
 br
 div
-  = form_tag fasta_data_upload_path, :method => :post, :multipart => true do
+  = form_tag fasta_data_upload_path, id: 'fileupload', method: :post, multipart: true do
     .row
-      .col-xs-4.col-sm-4.col-md-4.col-lg-4
-        = file_field_tag 'uploads[]', class: "filestyle", :multiple => true
-      .col-xs-1.col-sm-1.col-md-1.col-lg-1
-        = submit_tag 'Add Files', class: "btn btn-primary"
+      span.btn.success.fileinput-button
+        = file_field_tag 'files[]', multiple: true, accept: 'fasta'
+        = button_tag 'Add Files', class: "btn btn-default start"
+      | You can drag and drop files to upload. (.fasta or .fa or .seq)
 br
-= submit_tag 'Merge Fasta', class: "btn btn-primary", onclick: 'fasta_data.merge()'
-br
+div
+  = submit_tag 'Merge Fasta', class: "btn btn-primary", onclick: 'fasta_data.merge()'
 br
 div
   = button_to 'Delete All Files', fasta_data_destroy_all_path, method: :get, data: { confirm: 'delete all files?' }, class: "btn btn-danger"
