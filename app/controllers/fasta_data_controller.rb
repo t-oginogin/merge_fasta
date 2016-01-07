@@ -4,7 +4,7 @@ class FastaDataController < ApplicationController
   # GET /fasta_data
   # GET /fasta_data.json
   def index
-    @fasta_data = FastaDatum.all
+    @fasta_data = FastaDatum.all.order(:created_at)
   end
 
   # GET /fasta_data/1
@@ -73,14 +73,18 @@ class FastaDataController < ApplicationController
   end
 
   def upload
-    (params[:uploads] || []).each do |file|
+    (params[:files] || []).each do |file|
+      next unless %w(.fasta .fa .seq).include? File.extname(file.original_filename)
       fasta = FastaDatum.new
       fasta.filename = file.original_filename
       fasta.data = file.read
       fasta.save!
     end
 
-    redirect_to fasta_data_url
+    respond_to do |format|
+      format.html { redirect_to fasta_data_path }
+      format.json { head :no_content }
+    end
   end
 
   private

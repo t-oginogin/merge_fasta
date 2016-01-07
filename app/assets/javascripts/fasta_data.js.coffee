@@ -7,3 +7,9 @@ window.fasta_data = {}
 fasta_data.merge = ->
   $(merge_form).submit()
 
+$ ->
+  # initialize
+  $('#fileupload').fileupload(
+    done: ->
+      location.reload()
+  )
