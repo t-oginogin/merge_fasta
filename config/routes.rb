@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { sessions: "users/sessions" }, only: [:sessions]
+
+  get 'top/index'
+
   get 'fasta_data/destroy_all'
 
   post 'fasta_data/upload'
@@ -11,7 +15,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'fasta_data#index'
+  root to: 'top#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

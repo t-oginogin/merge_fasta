@@ -52,6 +52,8 @@ gem 'jquery-turbolinks'
 gem 'slim-rails'
 gem 'jquery-fileupload-rails'
 
+gem 'devise'
+
 group :production do
   gem 'newrelic_rpm'
 end
@@ -63,6 +65,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
   gem 'poltergeist'

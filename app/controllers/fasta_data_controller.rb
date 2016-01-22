@@ -1,4 +1,5 @@
 class FastaDataController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_fasta_datum, only: [:show, :edit, :update, :destroy]
 
   # GET /fasta_data

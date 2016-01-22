@@ -1,20 +1,28 @@
 require 'rails_helper'
 
 describe 'merge', :type => :feature do
-  before do
-      content1 = "ABCDEFG1\nBCDEFGH1"
-      FastaDatum.create(id: 1, filename: 'test1.fasta', data: content1)
+  def create_fasta(filename, data)
+    create(:fasta_datum, filename: filename, data: data)
+  end
 
-      content2 = "ABCDEFG2\nBCDEFGH2"
-      FastaDatum.create(id: 2, filename: 'test2.fasta', data: content2)
+  let(:user) { create(:user) }
+  let(:filename1) {'test1.fasta'}
+  let(:filename2) {'test2.fasta'}
+  let(:data1) {"ABCDEFG1\nBCDEFGH1"}
+  let(:data2) {"ABCDEFG2\nBCDEFGH2"}
+
+  before do
+    login user
+    create_fasta(filename1, "#{data1}")
+    create_fasta(filename2, "#{data2}")
   end
 
   it 'merge 2 data', :js => true do
-    visit '/'
-    page.save_screenshot('spec/results/merge_before.png' ,:full => true)
+    visit '/fasta_data/'
+    # page.save_screenshot('spec/results/merge_before.png' ,:full => true)
     click_button 'Merge Fasta'
-    page.save_screenshot('spec/results/merge_after.png' ,:full => true)
-    expect(page).to have_content '>test1'
-    expect(page).to have_content '>test2'
+    # page.save_screenshot('spec/results/merge_after.png' ,:full => true)
+    expect(page).to have_content ">#{File.basename(filename1, '.*')}\n#{data1}"
+    expect(page).to have_content ">#{File.basename(filename2, '.*')}\n#{data2}"
   end
 end
