@@ -1,4 +1,6 @@
 class FastaDatum < ActiveRecord::Base
+  belongs_to :user
+
   def self.merged_content( targets )
     fasta_data = FastaDatum.find targets
     content = ""
