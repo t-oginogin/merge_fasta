@@ -28,12 +28,9 @@ class FastaDataController < ApplicationController
     @fasta_datum = current_user.fasta_data.build(fasta_datum_params)
 
     respond_to do |format|
-      if @fasta_datum.save
+      if @fasta_datum.save!
         format.html { redirect_to @fasta_datum, notice: 'Fasta datum was successfully created.' }
         format.json { render :show, status: :created, location: @fasta_datum }
-      else
-        format.html { render :new }
-        format.json { render json: @fasta_datum.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,12 +39,9 @@ class FastaDataController < ApplicationController
   # PATCH/PUT /fasta_data/1.json
   def update
     respond_to do |format|
-      if @fasta_datum.update(fasta_datum_params)
+      if @fasta_datum.update!(fasta_datum_params)
         format.html { redirect_to @fasta_datum, notice: 'Fasta datum was successfully updated.' }
         format.json { render :show, status: :ok, location: @fasta_datum }
-      else
-        format.html { render :edit }
-        format.json { render json: @fasta_datum.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -55,7 +49,7 @@ class FastaDataController < ApplicationController
   # DELETE /fasta_data/1
   # DELETE /fasta_data/1.json
   def destroy
-    @fasta_datum.try!(:destroy)
+    @fasta_datum.destroy
     respond_to do |format|
       format.html { redirect_to fasta_data_url, notice: 'Fasta datum was successfully destroyed.' }
       format.json { head :no_content }
@@ -89,7 +83,10 @@ class FastaDataController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_fasta_datum
-      @fasta_datum = FastaDatum.where(id: params[:id], user_id: current_user.id ).first
+      @fasta_datum = FastaDatum.find(params[:id])
+      if @fasta_datum.user_id != current_user.id
+        raise ActiveRecord::RecordNotFound
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

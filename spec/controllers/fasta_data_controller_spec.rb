@@ -99,9 +99,9 @@ RSpec.describe FastaDataController, :type => :controller do
       end
 
       context 'when the data is owned by other user' do
-        it 'assigns nil as @fasta_datum' do
+        it 'redirect to 404 error page' do
           get :show, {id: fasta_datum2.id}
-          expect(assigns(:fasta_datum)).to be_nil
+          expect(response).to render_template(:error_404)
         end
       end
     end
@@ -135,6 +135,11 @@ RSpec.describe FastaDataController, :type => :controller do
         it 'dose not destroy the requested fasta_datum' do
           delete :destroy, {id: fasta_datum3.id}
           expect(FastaDatum.all.pluck(:id)).to match([fasta_datum1.id, fasta_datum2.id, fasta_datum3.id])
+        end
+
+        it 'redirect to 404 error page' do
+          delete :destroy, {id: fasta_datum3.id}
+          expect(response).to render_template(:error_404)
         end
       end
 
