@@ -2,16 +2,14 @@ h3
   = 'Merged data'
 .row
   .col-md-12
-    = text_area_tag 'content', @content, class: 'content-area', id: 'content', readonly: true
-br
-.row
-  .col-md-1
-    button.btn.btn-default.copy-button data-clipboard-target = '#content'
-      = 'Copy'
-
-  .col-md-2
-    = link_to 'NCBI BLAST', Settings.ncbi_blast_url, target: '_blank'
-br
-br
+    = form_tag Settings.ncbi_blast_api, method: :get, target: '_blank', enforce_utf8: false do
+      = hidden_field_tag 'CMD', 'Web'
+      = hidden_field_tag 'PAGE_TYPE', 'BlastSearch'
+      = hidden_field_tag 'LINK_LOC', 'blasthome'
+      = text_area_tag 'QUERY', @content, class: 'content-area', id: 'content', readonly: true
+      br
+      br
+      = submit_tag 'Open BLAST', class: 'btn btn-primary'
 hr
 = link_to 'Back', fasta_data_path
+
