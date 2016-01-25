@@ -13,3 +13,5 @@ $ ->
     done: ->
       location.reload()
   )
+
+  clipboard = new Clipboard('.copy-button')

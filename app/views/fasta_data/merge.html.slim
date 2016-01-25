@@ -1,4 +1,16 @@
-= br @content
+h3
+  = 'Merged data'
+.row
+  .col-md-12
+    = text_area_tag 'content', @content, class: 'content-area', id: 'content', readonly: true
+br
+.row
+  .col-md-1
+    button.btn.btn-default.copy-button data-clipboard-target = '#content'
+      = 'Copy'
+
+  .col-md-2
+    = link_to 'NCBI BLAST', Settings.ncbi_blast_url, target: '_blank'
 br
 br
 hr

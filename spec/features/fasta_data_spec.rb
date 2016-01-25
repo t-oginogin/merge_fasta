@@ -26,8 +26,9 @@ describe 'merge', :type => :feature do
     # page.save_screenshot('spec/results/merge_before.png' ,:full => true)
     click_button 'Merge Fasta'
     # page.save_screenshot('spec/results/merge_after.png' ,:full => true)
-    expect(page).to have_content ">#{File.basename(filename1, '.*')}\n#{data1}"
-    expect(page).to have_content ">#{File.basename(filename2, '.*')}\n#{data2}"
-    expect(page).not_to have_content ">#{File.basename(filename3, '.*')}\n#{data3}"
+    content = find('#content')
+    expect(content.value).to match />#{File.basename(filename1, '.*')}\n#{data1}/
+    expect(content.value).to match />#{File.basename(filename2, '.*')}\n#{data2}/
+    expect(content.value).not_to match />#{File.basename(filename3, '.*')}\n#{data3}/
   end
 end

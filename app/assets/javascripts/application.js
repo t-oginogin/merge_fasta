@@ -17,4 +17,5 @@
 //= require bootstrap-sprockets
 //= require bootstrap-filestyle.min
 //= require jquery-fileupload/basic
+//= require clipboard.min
 //= require_tree .

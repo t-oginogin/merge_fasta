@@ -53,6 +53,7 @@ gem 'slim-rails'
 gem 'jquery-fileupload-rails'
 
 gem 'devise'
+gem 'config'
 
 group :production do
   gem 'newrelic_rpm'
