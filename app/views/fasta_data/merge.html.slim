@@ -6,7 +6,7 @@ h3
       = hidden_field_tag 'CMD', 'Web'
       = hidden_field_tag 'PAGE_TYPE', 'BlastSearch'
       = hidden_field_tag 'LINK_LOC', 'blasthome'
-      = text_area_tag 'QUERY', @content, class: 'content-area', id: 'content', readonly: true
+      = text_area_tag 'QUERY', @content, class: 'content-area', id: 'content'
       br
       br
       = submit_tag 'Open BLAST', class: 'btn btn-primary'
