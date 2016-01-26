@@ -2,21 +2,18 @@ require 'rails_helper'
 
 RSpec.describe FastaDatum, :type => :model do
   describe 'merged_content' do
-    before do
-      FastaDatum.destroy_all
-
+    let!(:fasta_data) {
+      fasta_data = []
       content1 = "ABCDEFG1\nBCDEFGH1"
-      FastaDatum.create(id: 1, filename: 'test1.fasta', data: content1)
-
+      fasta_data << FastaDatum.create(id: 1, filename: 'test1.fasta', data: content1)
       content2 = "ABCDEFG2\nBCDEFGH2"
-      FastaDatum.create(id: 2, filename: 'test2.fasta', data: content2)
-
+      fasta_data << FastaDatum.create(id: 2, filename: 'test2.fasta', data: content2)
       content3 = "ABCDEFG3\nBCDEFGH3"
-      FastaDatum.create(id: 3, filename: 'test3.fasta', data: content3)
-
+      fasta_data << FastaDatum.create(id: 3, filename: 'test3.fasta', data: content3)
       content4 = "\>test\nABCDEFG4\nBCDEFGH4"
-      FastaDatum.create(id: 4, filename: 'test4.fasta', data: content4)
-    end
+      fasta_data << FastaDatum.create(id: 4, filename: 'test4.fasta', data: content4)
+      fasta_data
+    }
 
     let(:expected_content1) {
       content = ""
@@ -44,21 +41,21 @@ RSpec.describe FastaDatum, :type => :model do
 
     context 'when selected all files' do
       it 'includes each filename and content of all files' do
-        content = FastaDatum.merged_content [1,2,3]
+        content = FastaDatum.merged_content [fasta_data[0], fasta_data[1], fasta_data[2]]
         expect(content.gsub(' ', '')).to eq expected_content1.gsub(' ', '')
       end
     end
 
     context 'when selected files where id=1,3' do
       it 'includes each filename and content of files where id=1,3' do
-        content = FastaDatum.merged_content [1,3]
+        content = FastaDatum.merged_content [fasta_data[0], fasta_data[2]]
         expect(content.gsub(' ', '')).to eq expected_content2.gsub(' ', '')
       end
     end
 
     context 'when selected file where id=2' do
       it 'includes filename and content of file where id=2' do
-        content = FastaDatum.merged_content [2]
+        content = FastaDatum.merged_content [fasta_data[1]]
         expect(content.gsub(' ', '')).to eq expected_content3.gsub(' ', '')
       end
     end
@@ -72,7 +69,7 @@ RSpec.describe FastaDatum, :type => :model do
 
     context 'when selected files include ">"' do
       it 'does not include filename of the file' do
-        content = FastaDatum.merged_content [1,4]
+        content = FastaDatum.merged_content [fasta_data[0], fasta_data[3]]
         expect(content.gsub(' ', '')).to eq expected_content4.gsub(' ', '')
       end
     end

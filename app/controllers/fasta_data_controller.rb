@@ -5,7 +5,7 @@ class FastaDataController < ApplicationController
   # GET /fasta_data
   # GET /fasta_data.json
   def index
-    @fasta_data = current_user.fasta_data.order(:created_at)
+    @fasta_data = current_user.fasta_data.order(:last_modified_at)
   end
 
   # GET /fasta_data/1
@@ -64,14 +64,21 @@ class FastaDataController < ApplicationController
 
   def merge
     target_ids = (params[:targets] || {}).keys.map(&:to_i)
-    fasta_data = current_user.fasta_data.where(id: target_ids) # only user's data
-    @content = FastaDatum.merged_content fasta_data.pluck(:id)
+    # only user's data
+    # order by last modified date of original file
+    fasta_data = current_user.fasta_data.where(id: target_ids).order(:last_modified_at)
+    @content = FastaDatum.merged_content(fasta_data)
   end
 
   def upload
+    file_dates = params[:file_dates].map { |data| data.split(',') }.to_h
     (params[:files] || []).each do |file|
       next unless %w(.fasta .fa .seq).include? File.extname(file.original_filename)
-      current_user.fasta_data.create!(filename: file.original_filename, data: file.read)
+      # last modified date of original file
+      last_modified = Time.parse(file_dates[file.original_filename]) rescue Time.current
+      current_user.fasta_data.create!(filename: file.original_filename,
+                                      data: file.read,
+                                      last_modified_at: last_modified)
     end
 
     respond_to do |format|

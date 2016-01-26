@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe FastaDataController, :type => :controller do
-  def create_fasta(user_id, filename)
-    create(:fasta_datum, user_id: user_id, filename: filename)
+  def create_fasta(user_id, filename, last_modified = Date.today)
+    create(:fasta_datum,
+           user_id: user_id,
+           filename: filename,
+           last_modified_at: last_modified)
   end
 
   let(:user1) { create(:user) }
@@ -12,12 +15,12 @@ RSpec.describe FastaDataController, :type => :controller do
     let!(:fasta_data) {
       fasta_data = []
       Timecop.freeze(Date.today) do
-        fasta_data << create_fasta(user1.id, 'test1.fasta')
-        fasta_data << create_fasta(user2.id, 'test2.fasta')
+        fasta_data << create_fasta(user1.id, 'test1.fasta', Date.today)
+        fasta_data << create_fasta(user2.id, 'test2.fasta', Date.today)
       end
       Timecop.freeze(Date.yesterday) do
-        fasta_data << create_fasta(user1.id, 'test3.fasta')
-        fasta_data << create_fasta(user2.id, 'test4.fasta')
+        fasta_data << create_fasta(user1.id, 'test3.fasta', Date.today)
+        fasta_data << create_fasta(user2.id, 'test4.fasta', Date.today)
       end
       fasta_data
     }
@@ -32,7 +35,7 @@ RSpec.describe FastaDataController, :type => :controller do
         expect(assigns(:fasta_data).map(&:id)).to eq([fasta_data[2].id, fasta_data[0].id])
       end
 
-      it "is ordered by created_at" do
+      it "is ordered by last_modified_at" do
         get :index
         expect(assigns(:fasta_data).map(&:id)).to eq([fasta_data[2].id, fasta_data[0].id])
       end
