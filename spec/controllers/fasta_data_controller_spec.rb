@@ -69,7 +69,7 @@ RSpec.describe FastaDataController, :type => :controller do
       end
 
       it 'returns merged content only the user owns' do
-        get :merge, {targets: targets}
+        get :merge, params: {targets: targets}
         expect(assigns(:content)).to have_content(">#{File.basename(fasta_data[0].filename, '.*')}")
         expect(assigns(:content)).to have_content(">#{File.basename(fasta_data[1].filename, '.*')}")
         expect(assigns(:content)).to have_content(">#{File.basename(fasta_data[2].filename, '.*')}")
@@ -79,7 +79,7 @@ RSpec.describe FastaDataController, :type => :controller do
 
     context 'when user did not log in' do
       it 'redirect to login page' do
-        get :merge, {targets: targets}
+        get :merge, params: {targets: targets}
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -96,14 +96,14 @@ RSpec.describe FastaDataController, :type => :controller do
 
       context 'when the data is owned by the user' do
         it 'assigns the requested fasta_datum as @fasta_datum' do
-          get :show, {id: fasta_datum1.id}
+          get :show, params: {id: fasta_datum1.id}
           expect(assigns(:fasta_datum)).to eq(fasta_datum1)
         end
       end
 
       context 'when the data is owned by other user' do
         it 'redirect to 404 error page' do
-          get :show, {id: fasta_datum2.id}
+          get :show, params: {id: fasta_datum2.id}
           expect(response).to render_template(:error_404)
         end
       end
@@ -111,7 +111,7 @@ RSpec.describe FastaDataController, :type => :controller do
 
     context 'when user did not log in' do
       it 'redirect to login page' do
-        get :show, {id: fasta_datum1.id}
+        get :show, params: {id: fasta_datum1.id}
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -129,32 +129,32 @@ RSpec.describe FastaDataController, :type => :controller do
 
       context 'when the data is owned by the user' do
         it 'destroys the requested fasta_datum' do
-          delete :destroy, {id: fasta_datum1.id}
+          delete :destroy, params: {id: fasta_datum1.id}
           expect(FastaDatum.all.pluck(:id)).to match([fasta_datum2.id, fasta_datum3.id])
         end
       end
 
       context 'when the data is owned by other user' do
         it 'dose not destroy the requested fasta_datum' do
-          delete :destroy, {id: fasta_datum3.id}
+          delete :destroy, params: {id: fasta_datum3.id}
           expect(FastaDatum.all.pluck(:id)).to match([fasta_datum1.id, fasta_datum2.id, fasta_datum3.id])
         end
 
         it 'redirect to 404 error page' do
-          delete :destroy, {id: fasta_datum3.id}
+          delete :destroy, params: {id: fasta_datum3.id}
           expect(response).to render_template(:error_404)
         end
       end
 
       it 'redirects to the fasta_data list' do
-        delete :destroy, {id: fasta_datum1.id}
+        delete :destroy, params: {id: fasta_datum1.id}
         expect(response).to redirect_to(fasta_data_url)
       end
     end
 
     context 'when user did not log in' do
       it 'redirect to login page' do
-        delete :destroy, {id: fasta_datum1.id}
+        delete :destroy, params: {id: fasta_datum1.id}
         expect(response).to redirect_to(new_user_session_path)
       end
     end
