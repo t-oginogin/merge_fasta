@@ -1,4 +1,4 @@
-class CreateFastaData < ActiveRecord::Migration
+class CreateFastaData < ActiveRecord::Migration[4.2]
   def change
     create_table :fasta_data do |t|
       t.string :filename

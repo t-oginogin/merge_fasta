@@ -1,4 +1,4 @@
-class FastaDatum < ActiveRecord::Base
+class FastaDatum < ApplicationRecord
   belongs_to :user
 
   def self.merged_content( fasta_data )
