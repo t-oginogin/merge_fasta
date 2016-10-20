@@ -1,1 +1,1 @@
-ncbi_blast_api: 'http://blast.ncbi.nlm.nih.gov/Blast.cgi'
+ncbi_blast_api: 'https://blast.ncbi.nlm.nih.gov/Blast.cgi'
