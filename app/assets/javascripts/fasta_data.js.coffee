@@ -10,12 +10,6 @@ fasta_data.merge = ->
 $ ->
   # initialize
   $('#fileupload').fileupload(
-    add: (e, data) ->
-      $('input[name=file_dates\\[\\]]').remove()
-      $.each(data.files, (index, file) ->
-        $('#fileupload').append("<input type='hidden' name='file_dates[]' value='#{file.name},#{file.lastModifiedDate}'></input>")
-      )
-      data.submit()
     done: ->
       location.reload()
   )
