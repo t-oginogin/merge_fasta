@@ -12,7 +12,7 @@ h1
         th
           | Data
         th
-          | Last Modified
+          | Created At
         th[colspan="3"]
     tbody
       - @fasta_data.each_with_index do |fasta_datum, index|
@@ -26,7 +26,7 @@ h1
           td
             = br fasta_datum.data.truncate(60)
           td
-            = fasta_datum.last_modified_at.try!(:strftime, "%Y-%m-%d %H:%M:%S")
+            = fasta_datum.created_at.try!(:strftime, "%Y-%m-%d %H:%M:%S")
           td
             = link_to 'Show', fasta_datum
           td

@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe FastaDataController, :type => :controller do
-  def create_fasta(user_id, filename, last_modified = Date.today)
+  def create_fasta(user_id, filename, created_at = Date.today)
     create(:fasta_datum,
            user_id: user_id,
            filename: filename,
-           last_modified_at: last_modified)
+           created_at: created_at)
   end
 
   let(:user1) { create(:user) }
@@ -32,12 +32,12 @@ RSpec.describe FastaDataController, :type => :controller do
 
       it "is listed only user's data" do
         get :index
-        expect(assigns(:fasta_data).map(&:id)).to eq([fasta_data[2].id, fasta_data[0].id])
+        expect(assigns(:fasta_data).map(&:id)).to eq([fasta_data[0].id, fasta_data[2].id])
       end
 
-      it "is ordered by last_modified_at" do
+      it "is ordered by id" do
         get :index
-        expect(assigns(:fasta_data).map(&:id)).to eq([fasta_data[2].id, fasta_data[0].id])
+        expect(assigns(:fasta_data).map(&:id)).to eq([fasta_data[0].id, fasta_data[2].id])
       end
     end
 

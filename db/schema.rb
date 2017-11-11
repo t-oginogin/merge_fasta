@@ -10,15 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126015213) do
+ActiveRecord::Schema.define(version: 20171111054953) do
 
   create_table "fasta_data", force: :cascade do |t|
     t.string   "filename"
     t.binary   "data"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "user_id"
-    t.datetime "last_modified_at"
     t.index ["user_id"], name: "index_fasta_data_on_user_id"
   end
 
