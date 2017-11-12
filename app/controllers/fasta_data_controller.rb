@@ -82,16 +82,16 @@ class FastaDataController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_fasta_datum
-      @fasta_datum = FastaDatum.find(params[:id])
-      if @fasta_datum.user_id != current_user.id
-        raise ActiveRecord::RecordNotFound
-      end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_fasta_datum
+    @fasta_datum = FastaDatum.find(params[:id])
+    if @fasta_datum.user_id != current_user.id
+      raise ActiveRecord::RecordNotFound
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def fasta_datum_params
-      params.require(:fasta_datum).permit(:filename, :data)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def fasta_datum_params
+    params.require(:fasta_datum).permit(:filename, :data)
+  end
 end

@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
   unless Rails.env.development?
@@ -30,5 +28,4 @@ class ApplicationController < ActionController::Base
       render template: 'errors/error_500', formats: format, status: 500, layout: 'application', content_type: 'text/html'
     end
   end
-
 end
