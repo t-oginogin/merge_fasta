@@ -2,16 +2,17 @@ require 'rails_helper'
 
 RSpec.describe FastaDatum, :type => :model do
   describe 'merged_content' do
+    let(:user1) { create(:user) }
     let!(:fasta_data) {
       fasta_data = []
       content1 = "ABCDEFG1\nBCDEFGH1"
-      fasta_data << FastaDatum.create(id: 1, filename: 'test1.fasta', data: content1)
+      fasta_data << FastaDatum.create(id: 1, user_id: user1.id, filename: 'test1.fasta', data: content1)
       content2 = "ABCDEFG2\nBCDEFGH2"
-      fasta_data << FastaDatum.create(id: 2, filename: 'test2.fasta', data: content2)
+      fasta_data << FastaDatum.create(id: 2, user_id: user1.id, filename: 'test2.fasta', data: content2)
       content3 = "ABCDEFG3\nBCDEFGH3"
-      fasta_data << FastaDatum.create(id: 3, filename: 'test3.fasta', data: content3)
+      fasta_data << FastaDatum.create(id: 3, user_id: user1.id, filename: 'test3.fasta', data: content3)
       content4 = "\>test\nABCDEFG4\nBCDEFGH4"
-      fasta_data << FastaDatum.create(id: 4, filename: 'test4.fasta', data: content4)
+      fasta_data << FastaDatum.create(id: 4, user_id: user1.id, filename: 'test4.fasta', data: content4)
       fasta_data
     }
 
@@ -77,14 +78,16 @@ RSpec.describe FastaDatum, :type => :model do
   end
 
   describe 'content' do
+    let(:user1) { create(:user) }
+
     before do
       FastaDatum.destroy_all
 
       content_no_identifier = "ABCDEFG1\nBCDEFGH1"
-      FastaDatum.create(id: 1, filename: 'test_no_identifier.fasta', data: content_no_identifier)
+      FastaDatum.create(id: 1, user_id: user1.id, filename: 'test_no_identifier.fasta', data: content_no_identifier)
 
       content_with_identifier = "\>test\nABCDEFG2\nBCDEFGH2"
-      FastaDatum.create(id: 2, filename: 'content_with_identifier.fasta', data: content_with_identifier)
+      FastaDatum.create(id: 2, user_id: user1.id, filename: 'content_with_identifier.fasta', data: content_with_identifier)
     end
 
     let(:expected_content_no_identifier) {

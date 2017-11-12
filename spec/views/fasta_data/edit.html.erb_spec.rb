@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "fasta_data/edit", :type => :view do
+  let(:user1) { create(:user) }
   before(:each) do
-    @fasta_datum = assign(:fasta_datum, FastaDatum.create!(
-      :filename => "MyString",
-      :data => ""
-    ))
+    @fasta_datum = assign(:fasta_datum, FastaDatum.create!(user_id: user1.id, filename: 'MyString', data: ''))
   end
 
   it "renders the edit fasta_datum form" do
