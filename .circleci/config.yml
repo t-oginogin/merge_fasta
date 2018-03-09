@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.5.0-node-browsers
+        environment:
+          TZ: 'Asia/Tokyo'
+          RAILS_ENV: test
+    steps:
+      - checkout
+      - run: bundle install
+      - run: bin/rails db:create
+      - run: bin/rails db:migrate
+      - run: bin/rails webpacker:install
+      - run: bundle exec rspec
