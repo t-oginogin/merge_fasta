@@ -2,12 +2,13 @@
   "name": "merge_fasta",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^3.0.2",
+    "@rails/webpacker": "3.5",
     "bootstrap-sass": "^3.3.7",
     "coffeescript": "1.12.7",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "yarn": "^1.13.0"
   },
   "devDependencies": {
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "2.11.2"
   }
 }
