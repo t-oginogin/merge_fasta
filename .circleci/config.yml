@@ -8,8 +8,8 @@ jobs:
           RAILS_ENV: test
     steps:
       - add_ssh_keys:
-        fingerprints:
-          - "d0:bc:fc:9e:ea:70:7d:53:56:bd:56:c1:f6:3e:85:43"
+          fingerprints:
+            - "d0:bc:fc:9e:ea:70:7d:53:56:bd:56:c1:f6:3e:85:43"
       - checkout
       - run: bundle install
       - run: bin/rails db:create
