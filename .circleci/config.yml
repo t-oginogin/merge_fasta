@@ -6,7 +6,6 @@ jobs:
         environment:
           TZ: 'Asia/Tokyo'
           RAILS_ENV: test
-      - image: mdillon/postgis:9.5
     steps:
       - add_ssh_keys:
           fingerprints:
