@@ -1,4 +1,5 @@
 {
+  "stack": "heroku-18",
   "name": "mergefasta",
   "description": "Merge fasta files",
   "repository": "https://github.com/t-oginogin/merge_fasta",
