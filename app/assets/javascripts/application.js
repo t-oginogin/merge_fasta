@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery/dist/jquery
+//= require rails-ujs
 //= require bootstrap-sass/assets/javascripts/bootstrap
 //= require jquery-fileupload/basic
 //= require_tree .
